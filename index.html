@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090b20">
+  <meta name="description" content="A little universe made with love for Satya Swaroopa — My Mimii Piee.">
+  <title>For Satya Swaroopa ✨</title>
+  <style>
+    :root {
+      --night: #080a1d;
+      --night2: #121633;
+      --lavender: #c8b9ff;
+      --pink: #ffb8dc;
+      --gold: #f8dfaa;
+      --white: #fff9ff;
+      --muted: #c8c5e2;
+      --glass: rgba(255,255,255,.075);
+      --line: rgba(221,211,255,.28);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; color: var(--white);
+      background: radial-gradient(ellipse at 50% 0%, #292653 0%, var(--night2) 35%, var(--night) 78%);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.65; overflow-x: hidden;
+    }
+    button { font: inherit; }
+    a { color: inherit; }
+    .sky, .sky::before, .sky::after {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    }
+    .sky {
+      opacity: .75;
+      background-image:
+        radial-gradient(2px 2px at 12% 18%, #fff 50%, transparent 60%),
+        radial-gradient(1px 1px at 70% 24%, #fff 50%, transparent 60%),
+        radial-gradient(2px 2px at 86% 72%, #f9d9ff 50%, transparent 60%),
+        radial-gradient(1px 1px at 35% 66%, #fff 50%, transparent 60%),
+        radial-gradient(1px 1px at 56% 9%, #fff 50%, transparent 60%),
+        radial-gradient(2px 2px at 24% 84%, #fff 50%, transparent 60%),
+        radial-gradient(1px 1px at 92% 38%, #fff 50%, transparent 60%);
+      background-size: 320px 300px;
+      animation: twinkle 5s ease-in-out infinite alternate;
+    }
+    .sky::before {
+      content: ""; opacity: .45;
+      background-image: radial-gradient(1px 1px at 20% 30%, white 50%, transparent 60%), radial-gradient(1px 1px at 60% 80%, white 50%, transparent 60%);
+      background-size: 190px 230px;
+    }
+    @keyframes twinkle { from { opacity: .35; } to { opacity: .9; } }
+    .moon {
+      position: absolute; width: 95px; height: 95px; border-radius: 50%;
+      top: 9vh; right: 11vw; background: #fff4d8;
+      box-shadow: 0 0 28px #f8dfaa88, 0 0 90px #c7b6ff44;
+    }
+    .moon::after {
+      content: ""; position: absolute; width: 88px; height: 88px; border-radius: 50%;
+      background: #222044; top: -12px; left: 24px;
+    }
+    .wrap { position: relative; z-index: 1; }
+    .hero {
+      min-height: 100svh; padding: 90px 22px 60px; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center; position: relative;
+    }
+    .eyebrow { color: var(--gold); text-transform: uppercase; letter-spacing: .22em; font: 11px/1.6 Arial, sans-serif; }
+    h1 { font-size: clamp(2.7rem, 10vw, 6.2rem); line-height: 1.03; font-weight: 400; margin: 20px 0 14px; letter-spacing: -.04em; }
+    h1 span { display: block; color: var(--pink); font-style: italic; text-shadow: 0 0 28px #ffb8dc44; }
+    .subtitle { max-width: 540px; color: var(--muted); font-size: clamp(1rem, 3.6vw, 1.25rem); margin: 12px auto 28px; }
+    .button {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      border: 1px solid #f8dfaa88; border-radius: 999px; padding: 13px 24px;
+      color: #fff9ff; background: linear-gradient(120deg, #7f65a966, #ba6f9d44);
+      text-decoration: none; cursor: pointer; transition: transform .2s, background .2s;
+      box-shadow: 0 0 28px #c8b9ff15;
+    }
+    .button:hover { transform: translateY(-2px); background: #9e78b766; }
+    .hint { color: #a9a5cb; font: 11px Arial, sans-serif; margin-top: 14px; }
+    .scroll-cue { position: absolute; bottom: 20px; color: #c8b9ff; font: 11px Arial, sans-serif; letter-spacing: .16em; }
+    section { padding: 78px 20px; }
+    .section-inner { max-width: 820px; margin: auto; }
+    .section-head { text-align: center; margin-bottom: 40px; }
+    h2 { font-size: clamp(2rem, 7vw, 3.4rem); line-height: 1.1; font-weight: 400; margin: 10px 0; }
+    h2 em { color: var(--pink); }
+    .section-intro { color: var(--muted); max-width: 560px; margin: 12px auto 0; }
+    .timeline { position: relative; max-width: 720px; margin: auto; }
+    .timeline::before { content: ""; position: absolute; left: 17px; top: 8px; bottom: 8px; width: 1px; background: linear-gradient(transparent, var(--line), var(--pink), var(--line), transparent); }
+    .memory { position: relative; padding: 0 0 36px 52px; }
+    .memory:last-child { padding-bottom: 0; }
+    .dot { position: absolute; left: 9px; top: 5px; width: 17px; height: 17px; border: 1px solid var(--pink); border-radius: 50%; background: #191630; box-shadow: 0 0 16px #ffb8dc66; }
+    .memory-card { border: 1px solid #d9d0ff22; border-radius: 20px; padding: 21px; background: var(--glass); backdrop-filter: blur(8px); }
+    .memory-date { color: var(--gold); font: 10px Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; }
+    h3 { margin: 8px 0 9px; font-size: 1.5rem; font-weight: 400; }
+    .memory-card p { margin: 0; color: var(--muted); }
+    .photo {
+      width: 100%; aspect-ratio: 16/10; margin-top: 17px; overflow: hidden; border-radius: 13px;
+      border: 1px solid #ffffff18; background: linear-gradient(135deg, #2a234d, #4c3158 55%, #202442);
+      display: grid; place-items: center; text-align: center; color: #e6d9ff; padding: 16px;
+    }
+    .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .photo .placeholder { font: 12px/1.7 Arial, sans-serif; }
+    .photo .placeholder strong { display: block; font: 22px Georgia, serif; color: #fff3fb; margin-bottom: 5px; }
+    .letter {
+      border: 1px solid #f8dfaa55; border-radius: 24px; padding: clamp(24px, 6vw, 42px);
+      background: linear-gradient(145deg, #ffffff0b, #c8b9ff0a); box-shadow: 0 18px 60px #0002;
+      text-align: center;
+    }
+    .letter p { color: #e5def5; font-size: 1.08rem; }
+    .signature { color: var(--pink); font-size: 1.4rem; font-style: italic; margin-top: 24px; }
+    .surprise { text-align: center; padding-bottom: 100px; }
+    .gift { font-size: 64px; filter: drop-shadow(0 0 22px #ffb8dc44); animation: float 3s ease-in-out infinite; }
+    @keyframes float { 50% { transform: translateY(-10px) rotate(3deg); } }
+    .secret {
+      display: none; max-width: 620px; margin: 26px auto 0; padding: 25px;
+      border: 1px solid #ffb8dc55; border-radius: 20px; background: #ffb8dc0c;
+      animation: reveal .7s ease both;
+    }
+    .secret.show { display: block; }
+    @keyframes reveal { from { opacity: 0; transform: translateY(12px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    footer { position: relative; z-index: 1; text-align: center; padding: 28px 18px 38px; color: #9995ba; font: 11px Arial, sans-serif; }
+    .floating-heart { position: fixed; z-index: 5; pointer-events: none; bottom: -30px; animation: rise 4.5s ease-in forwards; opacity: 0; }
+    @keyframes rise { 10% { opacity: .85; } 100% { transform: translateY(-110vh) rotate(30deg); opacity: 0; } }
+    .music-control { position: fixed; right: 14px; bottom: 14px; z-index: 8; border: 1px solid #ffffff35; border-radius: 999px; background: #17162de8; color: white; padding: 10px 14px; cursor: pointer; font: 12px Arial, sans-serif; }
+    .reveal-on-scroll { opacity: 0; transform: translateY(18px); transition: opacity .8s ease, transform .8s ease; }
+    .reveal-on-scroll.visible { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+    @media (max-width: 520px) {
+      .moon { width: 66px; height: 66px; right: 9vw; top: 6vh; }
+      .moon::after { width: 62px; height: 62px; left: 17px; top: -8px; }
+      section { padding: 62px 16px; }
+      .memory { padding-left: 42px; }
+      .memory-card { padding: 17px; }
+      .timeline::before { left: 12px; }
+      .dot { left: 4px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sky" aria-hidden="true"></div>
+  <div class="wrap">
+    <header class="hero" id="top">
+      <div class="moon" aria-hidden="true"></div>
+      <div class="eyebrow">A little universe, made just for you</div>
+      <h1>Happy Birthday,<span>My Mimii Piee</span></h1>
+      <p class="subtitle">Satya Swaroopa, tonight the stars have one very special name to celebrate: yours. This little journey is for you, and only you. ♡</p>
+      <a class="button" href="#our-story" id="startButton">Begin our story <span aria-hidden="true">✦</span></a>
+      <div class="hint">Best experienced with your sound on ✨</div>
+      <div class="scroll-cue">SCROLL TO EXPLORE ↓</div>
+    </header>
+
+    <main>
+      <section id="our-story">
+        <div class="section-inner">
+          <div class="section-head reveal-on-scroll">
+            <div class="eyebrow">Chapter by chapter</div>
+            <h2>Our little <em>universe</em></h2>
+            <p class="section-intro">Every love story has its own kind of magic. These are a few pages from ours. Replace the sample words and photos with your own memories to make this truly yours.</p>
+          </div>
+          <div class="timeline">
+            <article class="memory reveal-on-scroll">
+              <span class="dot"></span>
+              <div class="memory-card">
+                <div class="memory-date">Chapter 01 · The beginning</div>
+                <h3>The day our story began ✨</h3>
+                <p>I didn't know then how many beautiful memories we'd make. I only know that life became a little more special with you in it.</p>
+                <div class="photo"><img src="images/memory-1.jpg" alt="Our first memory together" onerror="this.remove(); this.parentElement.innerHTML='<div class=&quot;placeholder&quot;><strong>Our first memory</strong>Add your photo as <code>images/memory-1.jpg</code></div>'"></div>
+              </div>
+            </article>
+            <article class="memory reveal-on-scroll">
+              <span class="dot"></span>
+              <div class="memory-card">
+                <div class="memory-date">Chapter 02 · My favorite person</div>
+                <h3>Little moments, big feelings 💗</h3>
+                <p>It isn't only the big moments. It's your smile, our silly conversations, and the tiny everyday things that make you my favorite person.</p>
+                <div class="photo"><img src="images/memory-2.jpg" alt="A favorite photo of us" onerror="this.remove(); this.parentElement.innerHTML='<div class=&quot;placeholder&quot;><strong>A favorite moment</strong>Add your photo as <code>images/memory-2.jpg</code></div>'"></div>
+              </div>
+            </article>
+            <article class="memory reveal-on-scroll">
+              <span class="dot"></span>
+              <div class="memory-card">
+                <div class="memory-date">Chapter 03 · Forever starts here</div>
+                <h3>Choosing you, every day 🌙</h3>
+                <p>With you, ordinary days can feel extraordinary. Whatever comes next, I want to keep learning, laughing, growing, and making memories beside you.</p>
+                <div class="photo"><img src="images/memory-3.jpg" alt="A special photo together" onerror="this.remove(); this.parentElement.innerHTML='<div class=&quot;placeholder&quot;><strong>Our forever photo</strong>Add your photo as <code>images/memory-3.jpg</code></div>'"></div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-inner reveal-on-scroll">
+          <div class="section-head">
+            <div class="eyebrow">From my heart to yours</div>
+            <h2>A letter for <em>Satya</em></h2>
+          </div>
+          <div class="letter">
+            <p>To my dearest Satya Swaroopa, my Mimii Piee,</p>
+            <p>On your birthday, I wish I could gather every star in the sky and turn them into little reminders of how precious you are to me.</p>
+            <p>Thank you for being you — for the warmth you bring, the memories we share, and all the beautiful moments still waiting for us. I hope this new year of your life brings you the happiness, peace, laughter, and love you deserve.</p>
+            <p>If I could make one wish tonight, it would be to keep making you smile, to stand beside you through every season, and to keep choosing you in all the little ways that matter.</p>
+            <p>Happy Birthday, my love. You will always have a special place in my heart. ❤️</p>
+            <div class="signature">Forever yours ✨</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="surprise">
+        <div class="section-inner reveal-on-scroll">
+          <div class="eyebrow">One last little thing</div>
+          <div class="gift" aria-hidden="true">🎁</div>
+          <h2>Your final <em>surprise</em></h2>
+          <p class="section-intro">There's one more wish tucked away just for you. Tap below, birthday girl.</p>
+          <button class="button" id="surpriseButton" type="button">Open your secret message 💌</button>
+          <div class="secret" id="secretMessage" aria-live="polite">
+            <div class="eyebrow">My wish for you</div>
+            <h3>May every star bring you joy, My Mimii Piee 🌙</h3>
+            <p>And whenever you look up at the night sky, remember: somewhere beneath these same stars is someone who feels lucky to love you. Happy Birthday, Satya Swaroopa. ❤️</p>
+            <div class="signature">I love you, always.</div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>Made with love, for Satya Swaroopa · My Mimii Piee ♡</footer>
+  </div>
+
+  <audio id="birthdayMusic" src="audio/romantic-song.wav" preload="none" loop></audio>
+  <button class="music-control" id="musicButton" type="button" aria-label="Play background music">♫ Play music</button>
+
+  <script>
+    const music = document.getElementById('birthdayMusic');
+    const musicButton = document.getElementById('musicButton');
+    const startButton = document.getElementById('startButton');
+    let musicOn = false;
+
+    async function toggleMusic() {
+      if (!musicOn) {
+        try {
+          await music.play();
+          musicOn = true;
+          musicButton.textContent = '♫ Pause music';
+        } catch (e) {
+          musicButton.textContent = 'Add song to audio/ first';
+        }
+      } else {
+        music.pause();
+        musicOn = false;
+        musicButton.textContent = '♫ Play music';
+      }
+    }
+    musicButton.addEventListener('click', toggleMusic);
+    startButton.addEventListener('click', () => {
+      makeHearts(10);
+      if (!musicOn && music.getAttribute('src')) {
+        music.play().then(() => {
+          musicOn = true;
+          musicButton.textContent = '♫ Pause music';
+        }).catch(() => {});
+      }
+    });
+
+    document.getElementById('surpriseButton').addEventListener('click', () => {
+      document.getElementById('secretMessage').classList.add('show');
+      document.getElementById('surpriseButton').textContent = 'Surprise opened ❤️';
+      makeHearts(24);
+    });
+
+    function makeHearts(count) {
+      const symbols = ['♡', '♥', '✦', '✨'];
+      for (let i = 0; i < count; i++) {
+        const heart = document.createElement('span');
+        heart.className = 'floating-heart';
+        heart.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.fontSize = (14 + Math.random() * 22) + 'px';
+        heart.style.color = ['#ffb8dc', '#f8dfaa', '#c8b9ff'][Math.floor(Math.random() * 3)];
+        heart.style.animationDuration = (3 + Math.random() * 3) + 's';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 6500);
+      }
+    }
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+
+    // A few gentle floating stars/hearts appear as the page loads.
+    window.addEventListener('load', () => setTimeout(() => makeHearts(7), 900));
+  </script>
+</body>
+</html>
