@@ -186,9 +186,17 @@
     .photo-frame .badge {
       position: absolute; bottom: -18px; left: 50%; transform: translateX(-50%);
       white-space: nowrap;
-      background: #1a1440; border: 1px solid #ffd98a88; color: var(--gold);
-      padding: 8px 20px; border-radius: 999px; font-size: 14px; letter-spacing: .06em;
-      box-shadow: 0 6px 20px #0008;
+      background: linear-gradient(120deg, #ff5fa2, #b06cff, #ff5fa2); background-size: 200% auto;
+      border: 2px solid #ffd98a; color: #fff;
+      padding: 10px 24px; border-radius: 999px;
+      font-size: clamp(15px, 4.4vw, 18px); font-style: italic; letter-spacing: .03em;
+      text-shadow: 0 1px 6px #0006;
+      box-shadow: 0 0 22px #ff5fa2aa, 0 8px 24px #0008;
+      animation: shimmer 3s linear infinite, badgeBeat 1.6s ease-in-out infinite;
+    }
+    @keyframes badgeBeat {
+      0%, 100% { transform: translateX(-50%) scale(1); }
+      50% { transform: translateX(-50%) scale(1.07); }
     }
     .corner { position: absolute; font-size: 34px; filter: drop-shadow(0 0 8px #ff5fa2); }
     .corner.tl { top: -18px; left: -14px; transform: rotate(-18deg); }
@@ -260,7 +268,7 @@
       <span class="corner tl">💗</span>
       <img src="images/raj.jpg?v=3" alt="My beautiful wife">
       <span class="corner br">✨</span>
-      <span class="badge">My forever & always</span>
+      <span class="badge">💞 The love of my life 💞</span>
     </div>
 
     <div class="letter">
