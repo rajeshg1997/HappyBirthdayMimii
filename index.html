@@ -146,61 +146,88 @@
 
     /* ---------- Scene 2: the wish ---------- */
     #wish { justify-content: flex-start; padding-top: 60px; padding-bottom: 90px; }
-    #wish > * { opacity: 0; transform: translateY(30px); }
-    #wish.show > * { animation: appear 1s ease forwards; }
-    #wish.show > *:nth-child(2) { animation-delay: .35s; }
-    #wish.show > *:nth-child(3) { animation-delay: .8s; }
-    #wish.show > *:nth-child(4) { animation-delay: 1.2s; }
-    #wish.show > *:nth-child(5) { animation-delay: 1.6s; }
-    #wish.show > *:nth-child(6) { animation-delay: 2s; }
     @keyframes appear { to { opacity: 1; transform: none; } }
+    .cake { font-size: 54px; line-height: 1; margin-bottom: 10px; opacity: 0; filter: drop-shadow(0 0 16px #ffd98a88); }
+    #wish.show .cake { animation: popIn .8s .1s ease-out forwards, bob 3.5s 1s ease-in-out infinite; }
+    @keyframes popIn { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: none; } }
+    @keyframes bob { 50% { transform: translateY(-6px); } }
+    .name-line, .photo-frame { opacity: 0; transform: translateY(30px); }
+    #wish.show .name-line { animation: appear 1s 2.2s ease forwards; }
+
+    /* Sections lower down animate in as she scrolls to them. */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 1s ease, transform 1s ease-out; }
+    .reveal.in { opacity: 1; transform: none; }
 
     .big-title {
       font-size: clamp(2.2rem, 12vw, 6.5rem); font-weight: 400; line-height: 1.02;
       letter-spacing: -.03em;
     }
-    .big-title .line1 { display: block; color: var(--white); text-shadow: 0 0 30px #ffffff33; }
+    .big-title .line1 { display: block; color: var(--white); text-shadow: 0 0 30px #ffffff55; }
+    .big-title .word { display: inline-block; white-space: nowrap; }
+    .big-title .ch { display: inline-block; opacity: 0; transform: translateY(14px); }
+    #wish.show .big-title .ch { animation: dropIn .7s ease-out forwards; }
+    @keyframes dropIn { to { opacity: 1; transform: none; } }
     .big-title .line2 {
       display: block; font-style: italic;
       background: linear-gradient(90deg, var(--rose), var(--gold), var(--pink), var(--rose));
       background-size: 200% auto;
       -webkit-background-clip: text; background-clip: text; color: transparent;
-      animation: shimmer 4s linear infinite;
       filter: drop-shadow(0 0 18px #ff5fa255);
+      opacity: 0; transform: scale(.85);
     }
+    #wish.show .big-title .line2 { animation: zoomIn 1s 1.3s ease-out forwards, shimmer 6s linear infinite; }
+    @keyframes zoomIn { to { opacity: 1; transform: none; } }
     .name-line { margin-top: 14px; color: var(--gold); font-size: clamp(1rem, 4vw, 1.25rem); letter-spacing: .05em; }
 
     .photo-frame {
       position: relative; margin: 44px auto 10px;
       width: min(86vw, 440px); aspect-ratio: 4 / 5;
-      border-radius: 28px; padding: 10px;
-      background: linear-gradient(140deg, var(--gold), var(--pink), var(--lavender), var(--rose));
+      border-radius: 28px; padding: 8px;
       box-shadow: 0 0 60px #ff5fa255, 0 25px 60px #00000066;
-      animation: floaty 5s ease-in-out infinite;
     }
-    @keyframes floaty { 50% { transform: translateY(-8px); } }
+    #wish.show .photo-frame {
+      animation: photoIn 1.2s 2.2s ease-out forwards, floaty 6s 3.4s ease-in-out infinite;
+    }
+    @keyframes photoIn {
+      from { opacity: 0; transform: scale(.92); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes floaty { 0%, 100% { transform: none; } 50% { transform: translateY(-6px); } }
+    .photo-ring { position: absolute; inset: 0; border-radius: inherit; overflow: hidden; }
+    .photo-ring::before {
+      content: ""; position: absolute; inset: -50%;
+      background: conic-gradient(var(--gold), var(--rose), var(--lavender), var(--pink), var(--gold));
+      animation: spin 10s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
     .photo-frame img {
-      width: 100%; height: 100%; object-fit: cover; display: block;
-      border-radius: 20px; background: #2a2050;
+      position: relative; width: 100%; height: 100%; object-fit: cover; display: block;
+      border-radius: 21px; background: #2a2050;
+    }
+    .spark {
+      position: absolute; z-index: 2; pointer-events: none;
+      filter: drop-shadow(0 0 8px #ffd98a);
+      animation: twinkleSpark 3s ease-in-out infinite;
+    }
+    .spark.s1 { top: 12%; left: -22px; font-size: 22px; }
+    .spark.s2 { top: 38%; right: -20px; font-size: 18px; animation-delay: .5s; }
+    .spark.s3 { top: 66%; left: -18px; font-size: 16px; animation-delay: 1s; }
+    .spark.s4 { top: -24px; right: 22%; font-size: 20px; animation-delay: 1.5s; }
+    @keyframes twinkleSpark {
+      0%, 100% { transform: scale(.8); opacity: .4; }
+      50%      { transform: scale(1.1); opacity: 1; }
     }
     .photo-frame .badge {
       position: absolute; bottom: -18px; left: 50%; transform: translateX(-50%);
       white-space: nowrap;
-      background: linear-gradient(120deg, #ff5fa2, #b06cff, #ff5fa2); background-size: 200% auto;
-      border: 2px solid #ffd98a; color: #fff;
-      padding: 10px 24px; border-radius: 999px;
-      font-size: clamp(15px, 4.4vw, 18px); font-style: italic; letter-spacing: .03em;
-      text-shadow: 0 1px 6px #0006;
-      box-shadow: 0 0 22px #ff5fa2aa, 0 8px 24px #0008;
-      animation: shimmer 3s linear infinite, badgeBeat 1.6s ease-in-out infinite;
+      background: #1a1440; border: 1px solid #ffd98a88; color: var(--gold);
+      padding: 8px 20px; border-radius: 999px; font-size: 15px; font-style: italic;
+      box-shadow: 0 6px 20px #0008;
+      z-index: 2;
     }
-    @keyframes badgeBeat {
-      0%, 100% { transform: translateX(-50%) scale(1); }
-      50% { transform: translateX(-50%) scale(1.07); }
-    }
-    .corner { position: absolute; font-size: 34px; filter: drop-shadow(0 0 8px #ff5fa2); }
-    .corner.tl { top: -18px; left: -14px; transform: rotate(-18deg); }
-    .corner.br { bottom: -16px; right: -12px; transform: rotate(14deg); }
+    .corner { position: absolute; z-index: 2; font-size: 34px; filter: drop-shadow(0 0 8px #ff5fa2); animation: heartbeat 1.4s ease-in-out infinite; }
+    .corner.tl { top: -18px; left: -14px; }
+    .corner.br { bottom: -16px; right: -12px; animation-delay: .7s; }
 
     .letter {
       margin: 60px auto 0; max-width: 520px; text-align: center;
@@ -211,6 +238,11 @@
       font-size: clamp(1.02rem, 3.9vw, 1.18rem); line-height: 1.8; color: #f5effc;
     }
     .letter p + p { margin-top: 16px; }
+    .letter p { opacity: 0; transform: translateY(16px); }
+    .letter.in p { animation: appear .9s ease forwards; }
+    .letter.in p:nth-child(2) { animation-delay: .5s; }
+    .letter.in p:nth-child(3) { animation-delay: 1s; }
+    .letter.in p:nth-child(4) { animation-delay: 1.5s; }
     .letter .greet { font-size: 1.25em; color: var(--pink); font-style: italic; }
     .letter .sign { margin-top: 26px; text-align: right; color: var(--gold); font-style: italic; }
 
@@ -226,12 +258,25 @@
     }
     .polaroid:nth-child(1) { transform: rotate(-5deg); }
     .polaroid:nth-child(2) { transform: rotate(4deg); }
+    .gallery.in .polaroid:nth-child(1) { animation: flyL 1s ease-out backwards; }
+    .gallery.in .polaroid:nth-child(2) { animation: flyR 1s .2s ease-out backwards; }
+    @keyframes flyL { from { opacity: 0; transform: translateX(-30px) rotate(-5deg); } }
+    @keyframes flyR { from { opacity: 0; transform: translateX(30px) rotate(4deg); } }
     @media (hover: hover) { .polaroid:hover { transform: rotate(0) scale(1.05); } }
     .polaroid img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; border-radius: 2px; }
     .polaroid span { position: absolute; bottom: 9px; left: 0; right: 0; text-align: center; }
 
     .finale { margin-top: 56px; }
-    .finale h2 { font-weight: 400; font-size: clamp(1.6rem, 6vw, 2.4rem); color: var(--pink); }
+    .finale h2 { font-weight: 400; font-size: clamp(1.6rem, 6vw, 2.4rem); color: var(--pink); text-shadow: 0 0 20px #ff5fa288; }
+    .finale.in h2 { animation: softBeat 2.4s 1s ease-in-out infinite; }
+    @keyframes softBeat { 50% { transform: scale(1.04); } }
+    .balloon {
+      position: fixed; bottom: -90px; z-index: 40; pointer-events: none;
+      animation: balloonUp linear forwards;
+    }
+    .balloon > span { display: inline-block; animation: sway 2.4s ease-in-out infinite alternate; }
+    @keyframes balloonUp { to { transform: translateY(-125vh); } }
+    @keyframes sway { from { transform: translateX(-14px) rotate(-6deg); } to { transform: translateX(14px) rotate(6deg); } }
     .finale p { color: var(--muted); margin-top: 8px; }
     .again {
       margin-top: 24px; padding: 12px 26px; border-radius: 999px; color: #fff;
@@ -258,32 +303,36 @@
 
   <!-- Scene 2: the birthday wish -->
   <main id="wish" class="scene hidden">
+    <div class="cake">🎂</div>
     <h1 class="big-title">
-      <span class="line1">Happy Birthday,</span>
+      <span class="line1" id="hbTitle">Happy Birthday,</span>
       <span class="line2">My Wife 💖</span>
     </h1>
     <p class="name-line">My Mimii Piee 🌙</p>
 
     <div class="photo-frame">
+      <span class="photo-ring"></span>
       <span class="corner tl">💗</span>
       <img src="images/raj.jpg?v=3" alt="My beautiful wife">
-      <span class="corner br">✨</span>
-      <span class="badge">💞 The love of my life 💞</span>
+      <span class="corner br">💖</span>
+      <span class="spark s1">✨</span><span class="spark s2">💫</span>
+      <span class="spark s3">✨</span><span class="spark s4">🌟</span>
+      <span class="badge">The love of my life ❤️</span>
     </div>
 
-    <div class="letter">
+    <div class="letter reveal">
       <p class="greet">My Mimii Piee 🥰💖</p>
       <p>Ever since you came into my life, you filled it with colours. 🌈 You are my happiness, my home and my everything.</p>
       <p>Happy Birthday, my sweet wife. I love you more than words can say. ❤️</p>
       <p class="sign">Forever yours 😘</p>
     </div>
 
-    <div class="gallery">
+    <div class="gallery reveal">
       <figure class="polaroid"><img src="images/raj2.jpg?v=3" alt="Our memory"><span>us 💕</span></figure>
       <figure class="polaroid"><img src="images/raj3.jpg?v=3" alt="Our memory"><span>always 🌙</span></figure>
     </div>
 
-    <div class="finale">
+    <div class="finale reveal">
       <h2>I love you, always 💞</h2>
       <button id="againBtn" class="again">Celebrate again 🎉</button>
     </div>
@@ -294,13 +343,16 @@
     const intro = document.getElementById('intro');
     const wish = document.getElementById('wish');
 
-    // Reveal "My Sweet Wife" one letter at a time.
-    const wifeTitle = document.getElementById('wifeTitle');
-    let letterIndex = 0;
-    wifeTitle.innerHTML = wifeTitle.textContent.split(' ').map(word =>
-      '<span class="word">' + [...word].map(ch =>
-        `<span class="ch" style="animation-delay:${1.2 + letterIndex++ * 0.1}s">${ch}</span>`).join('') + '</span>'
-    ).join(' ');
+    // Split a heading into letters so each one can animate in turn.
+    function splitLetters(el, startDelay, step) {
+      let i = 0;
+      el.innerHTML = el.textContent.split(' ').map(word =>
+        '<span class="word">' + [...word].map(ch =>
+          `<span class="ch" style="animation-delay:${startDelay + i++ * step}s">${ch}</span>`).join('') + '</span>'
+      ).join(' ');
+    }
+    splitLetters(document.getElementById('wifeTitle'), 1.2, 0.1);
+    splitLetters(document.getElementById('hbTitle'), 0.4, 0.06);
 
     // Gentle hearts drifting up in the background the whole time.
     function spawnHeart() {
@@ -322,18 +374,19 @@
     function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
     addEventListener('resize', resize); resize();
 
-    function burst(count = 160) {
+    function burst(count = 160, x = innerWidth / 2, y = innerHeight * 0.45, power = 16) {
       const colors = ['#ff5fa2', '#ff9ccf', '#ffd98a', '#cdbcff', '#ffffff'];
+      const wasIdle = pieces.length === 0;
       for (let i = 0; i < count; i++) {
         pieces.push({
-          x: innerWidth / 2, y: innerHeight * 0.45,
-          vx: (Math.random() - 0.5) * 16, vy: Math.random() * -16 - 4,
+          x, y,
+          vx: (Math.random() - 0.5) * power, vy: Math.random() * -power - power / 4,
           size: 5 + Math.random() * 7, rot: Math.random() * 6, vr: (Math.random() - 0.5) * 0.3,
           color: colors[Math.floor(Math.random() * colors.length)],
           heart: Math.random() < 0.3, life: 0
         });
       }
-      if (pieces.length === count) requestAnimationFrame(draw);
+      if (wasIdle) requestAnimationFrame(draw);
     }
     function drawHeart(s) {
       ctx.beginPath();
@@ -359,21 +412,50 @@
       else ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 
+    // Birthday balloons floating up the screen.
+    function balloons(count) {
+      for (let i = 0; i < count; i++) {
+        setTimeout(() => {
+          const b = document.createElement('div');
+          b.className = 'balloon';
+          b.innerHTML = '<span>🎈</span>';
+          b.style.left = (5 + Math.random() * 85) + 'vw';
+          b.style.fontSize = (34 + Math.random() * 26) + 'px';
+          b.style.filter = `hue-rotate(${Math.floor(Math.random() * 360)}deg)`;
+          b.style.animationDuration = (7 + Math.random() * 5) + 's';
+          document.body.appendChild(b);
+          setTimeout(() => b.remove(), 13000);
+        }, i * 350);
+      }
+    }
+
+    // Fade in the letter, photos and ending as she scrolls down.
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
     document.getElementById('openBtn').addEventListener('click', () => {
-      burst(200);
+      burst(140);
       intro.classList.add('leaving');
       setTimeout(() => {
         intro.classList.add('hidden');
         wish.classList.remove('hidden');
         window.scrollTo(0, 0);
         requestAnimationFrame(() => wish.classList.add('show'));
-        setTimeout(() => burst(140), 600);
+        setTimeout(() => balloons(6), 1200);
       }, 900);
     });
 
     document.getElementById('againBtn').addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      burst(220);
+      burst(140);
+      balloons(5);
     });
   </script>
 </body>
