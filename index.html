@@ -70,28 +70,55 @@
     /* ---------- Scene 1: intro ---------- */
     #intro { transition: opacity .9s ease, transform .9s ease; }
     #intro.leaving { opacity: 0; transform: scale(1.08); }
-    .envelope {
-      font-size: 84px; line-height: 1;
-      filter: drop-shadow(0 0 22px #ff9ccf88);
-      animation: bob 3s ease-in-out infinite;
+    .love-heart {
+      position: relative; font-size: 92px; line-height: 1;
+      filter: drop-shadow(0 0 26px #ff5fa2cc);
+      animation: heartbeat 1.4s ease-in-out infinite;
     }
-    @keyframes bob { 50% { transform: translateY(-12px) rotate(-4deg); } }
+    .love-heart::before, .love-heart::after {
+      content: ""; position: absolute; left: 50%; top: 50%;
+      width: 120px; height: 120px; margin: -60px 0 0 -60px; border-radius: 50%;
+      border: 2px solid #ff9ccf; opacity: 0; z-index: -1;
+      animation: ring 2.8s ease-out infinite;
+    }
+    .love-heart::after { animation-delay: 1.4s; }
+    @keyframes heartbeat {
+      0%, 40%, 100% { transform: scale(1); }
+      15% { transform: scale(1.18); }
+      28% { transform: scale(1.05); }
+    }
+    @keyframes ring {
+      0%   { transform: scale(.6); opacity: .8; }
+      100% { transform: scale(2.4); opacity: 0; }
+    }
     .eyebrow {
-      margin-top: 26px;
-      color: var(--gold); text-transform: uppercase; letter-spacing: .3em;
-      font: 12px/1.6 Arial, sans-serif;
+      margin-top: 34px;
+      color: var(--gold); letter-spacing: .14em;
+      font: italic clamp(1rem, 4.2vw, 1.2rem)/1.6 Georgia, serif;
+      opacity: 0; animation: appear 1s .3s ease forwards;
     }
     .intro-title {
-      font-size: clamp(2.2rem, 9vw, 4.6rem); font-weight: 400; line-height: 1.1;
-      margin: 14px 0 44px; letter-spacing: -.02em;
+      font-weight: 400; line-height: 1.05; margin: 10px 0 48px;
+    }
+    .intro-title .small {
+      display: block; color: var(--muted);
+      font-size: clamp(1.15rem, 5vw, 1.7rem); letter-spacing: .04em;
+      opacity: 0; animation: appear 1s .8s ease forwards;
     }
     .intro-title em {
-      display: block; font-style: italic;
-      background: linear-gradient(90deg, var(--pink), var(--gold), var(--pink));
-      background-size: 200% auto;
-      -webkit-background-clip: text; background-clip: text; color: transparent;
-      animation: shimmer 4s linear infinite;
+      display: block; margin-top: 8px; font-style: italic;
+      font-size: clamp(2.4rem, 12vw, 6.4rem); letter-spacing: -.02em;
+      color: #ffc2e2;
+      text-shadow: 0 0 18px #ff5fa2, 0 0 42px #ff5fa288, 0 0 80px #ffd98a55;
     }
+    .intro-title em .word { display: inline-block; white-space: nowrap; }
+    .intro-title em .ch {
+      display: inline-block; opacity: 0; transform: translateY(24px) scale(.6); filter: blur(6px);
+      animation: letterIn .7s cubic-bezier(.2,1.4,.4,1) forwards;
+    }
+    @keyframes letterIn { to { opacity: 1; transform: none; filter: none; } }
+    @keyframes fadeIn { to { opacity: 1; } }
+    #openBtn { opacity: 0; animation: fadeIn 1s 2.6s ease forwards, pulse 1.8s 3.6s ease-out infinite; }
     @keyframes shimmer { to { background-position: 200% center; } }
 
     .magic-btn {
@@ -215,9 +242,9 @@
 
   <!-- Scene 1: the invitation -->
   <main id="intro" class="scene">
-    <div class="envelope">💌</div>
-    <p class="eyebrow">A little surprise</p>
-    <h1 class="intro-title">This is for<em>my sweet wife</em></h1>
+    <div class="love-heart">💖</div>
+    <p class="eyebrow">Psst… only for you 🤫</p>
+    <h1 class="intro-title"><span class="small">Made with love for</span><em id="wifeTitle">My Sweet Wife</em></h1>
     <button id="openBtn" class="magic-btn">Click here 💖</button>
   </main>
 
@@ -258,6 +285,14 @@
   <script>
     const intro = document.getElementById('intro');
     const wish = document.getElementById('wish');
+
+    // Reveal "My Sweet Wife" one letter at a time.
+    const wifeTitle = document.getElementById('wifeTitle');
+    let letterIndex = 0;
+    wifeTitle.innerHTML = wifeTitle.textContent.split(' ').map(word =>
+      '<span class="word">' + [...word].map(ch =>
+        `<span class="ch" style="animation-delay:${1.2 + letterIndex++ * 0.1}s">${ch}</span>`).join('') + '</span>'
+    ).join(' ');
 
     // Gentle hearts drifting up in the background the whole time.
     function spawnHeart() {
