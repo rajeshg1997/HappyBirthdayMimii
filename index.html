@@ -7,7 +7,7 @@
   <meta name="description" content="A little surprise for my sweet wife 💖">
   <meta property="og:title" content="This is for my sweet wife 💖">
   <meta property="og:description" content="Tap to open your birthday surprise ✨">
-  <meta property="og:image" content="images/memory-1.jpg">
+  <meta property="og:image" content="images/raj.jpg">
   <title>For My Sweet Wife 💖</title>
   <style>
     :root {
@@ -116,11 +116,6 @@
       70%  { box-shadow: 0 0 0 22px #ff5fa200, 0 10px 40px #ff5fa255; }
       100% { box-shadow: 0 0 0 0 #ff5fa200, 0 10px 40px #ff5fa255; }
     }
-    .tap-hint {
-      margin-top: 22px; color: #bfb7e6; font: 12px Arial, sans-serif; letter-spacing: .12em;
-      animation: blink 2s ease-in-out infinite;
-    }
-    @keyframes blink { 50% { opacity: .35; } }
 
     /* ---------- Scene 2: the wish ---------- */
     #wish { justify-content: flex-start; padding-top: 60px; padding-bottom: 90px; }
@@ -209,15 +204,6 @@
     }
     .again:hover { background: rgba(255,255,255,.16); }
 
-    .music-btn {
-      position: fixed; right: 16px; bottom: 16px; z-index: 60;
-      width: 50px; height: 50px; border-radius: 50%;
-      background: rgba(30,22,70,.8); border: 1px solid #ffd98a88; color: var(--gold);
-      font-size: 22px; box-shadow: 0 6px 20px #0008;
-    }
-    .music-btn.playing { animation: spin 4s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
     }
@@ -233,7 +219,6 @@
     <p class="eyebrow">A little surprise</p>
     <h1 class="intro-title">This is for<em>my sweet wife</em></h1>
     <button id="openBtn" class="magic-btn">Click here ✨</button>
-    <p class="tap-hint">Turn your sound on 🔊</p>
   </main>
 
   <!-- Scene 2: the birthday wish -->
@@ -246,7 +231,7 @@
 
     <div class="photo-frame">
       <span class="corner tl">💗</span>
-      <img src="images/memory-1.jpg" alt="My beautiful wife">
+      <img src="images/raj.jpg" alt="My beautiful wife">
       <span class="corner br">✨</span>
       <span class="badge">My forever & always</span>
     </div>
@@ -270,14 +255,10 @@
     </div>
   </main>
 
-  <button id="musicBtn" class="music-btn hidden" aria-label="Play or pause music">♫</button>
-  <audio id="music" src="audio/romantic-song.wav" preload="auto" loop></audio>
 
   <script>
     const intro = document.getElementById('intro');
     const wish = document.getElementById('wish');
-    const music = document.getElementById('music');
-    const musicBtn = document.getElementById('musicBtn');
 
     // Gentle hearts drifting up in the background the whole time.
     function spawnHeart() {
@@ -336,22 +317,12 @@
       else ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 
-    function playMusic() {
-      music.play().then(() => musicBtn.classList.add('playing')).catch(() => {});
-    }
-    musicBtn.addEventListener('click', () => {
-      if (music.paused) playMusic();
-      else { music.pause(); musicBtn.classList.remove('playing'); }
-    });
-
     document.getElementById('openBtn').addEventListener('click', () => {
-      playMusic();
       burst(200);
       intro.classList.add('leaving');
       setTimeout(() => {
         intro.classList.add('hidden');
         wish.classList.remove('hidden');
-        musicBtn.classList.remove('hidden');
         window.scrollTo(0, 0);
         requestAnimationFrame(() => wish.classList.add('show'));
         setTimeout(() => burst(140), 600);
