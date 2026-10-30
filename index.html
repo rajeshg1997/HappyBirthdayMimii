@@ -151,8 +151,7 @@
     #wish.show .cake { animation: popIn .8s .1s ease-out forwards, bob 3.5s 1s ease-in-out infinite; }
     @keyframes popIn { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: none; } }
     @keyframes bob { 50% { transform: translateY(-6px); } }
-    .name-line, .photo-frame { opacity: 0; transform: translateY(30px); }
-    #wish.show .name-line { animation: appear 1s 2.2s ease forwards; }
+    .photo-frame { opacity: 0; transform: translateY(30px); }
 
     /* Sections lower down animate in as she scrolls to them. */
     .reveal { opacity: 0; transform: translateY(30px); transition: opacity 1s ease, transform 1s ease-out; }
@@ -177,7 +176,22 @@
     }
     #wish.show .big-title .line2 { animation: zoomIn 1s 1.3s ease-out forwards, shimmer 6s linear infinite; }
     @keyframes zoomIn { to { opacity: 1; transform: none; } }
-    .name-line { margin-top: 14px; color: var(--gold); font-size: clamp(1rem, 4vw, 1.25rem); letter-spacing: .05em; }
+    .name-line {
+      margin-top: 16px; color: #ffe3a8; font-style: italic;
+      font-size: clamp(1.25rem, 5.4vw, 1.7rem); letter-spacing: .06em;
+    }
+    .name-line .word { display: inline-block; white-space: nowrap; }
+    /* Each letter floats in, then a soft pink glow ripples through the name. */
+    .name-line .ch { display: inline-block; opacity: 0; transform: translateY(12px) scale(.8); }
+    #wish.show .name-line .ch { animation: nameIn .8s ease-out forwards, nameGlow 3s ease-in-out infinite; }
+    @keyframes nameIn { to { opacity: 1; transform: none; } }
+    @keyframes nameGlow {
+      0%, 100% { text-shadow: 0 0 6px #ffd98a55; }
+      50%      { text-shadow: 0 0 14px #ff5fa2, 0 0 28px #ff9ccf99; color: #ffd0ea; }
+    }
+    .name-emoji { display: inline-block; opacity: 0; margin-left: 6px; }
+    #wish.show .name-emoji { animation: popIn .7s 3s ease-out forwards, emojiBeat 1.4s 3.7s ease-in-out infinite; }
+    @keyframes emojiBeat { 0%, 40%, 100% { transform: scale(1); } 15% { transform: scale(1.18); } 28% { transform: scale(1.06); } }
 
     .photo-frame {
       position: relative; margin: 44px auto 10px;
@@ -216,14 +230,6 @@
     @keyframes twinkleSpark {
       0%, 100% { transform: scale(.8); opacity: .4; }
       50%      { transform: scale(1.1); opacity: 1; }
-    }
-    .photo-frame .badge {
-      position: absolute; bottom: -18px; left: 50%; transform: translateX(-50%);
-      white-space: nowrap;
-      background: #1a1440; border: 1px solid #ffd98a88; color: var(--gold);
-      padding: 8px 20px; border-radius: 999px; font-size: 15px; font-style: italic;
-      box-shadow: 0 6px 20px #0008;
-      z-index: 2;
     }
     .corner { position: absolute; z-index: 2; font-size: 34px; filter: drop-shadow(0 0 8px #ff5fa2); animation: heartbeat 1.4s ease-in-out infinite; }
     .corner.tl { top: -18px; left: -14px; }
@@ -308,7 +314,7 @@
       <span class="line1" id="hbTitle">Happy Birthday,</span>
       <span class="line2">My Wife 💖</span>
     </h1>
-    <p class="name-line">My Mimii Piee 🌙</p>
+    <p class="name-line"><span id="nameText">My Mimii Piee</span><span class="name-emoji">🌙💖</span></p>
 
     <div class="photo-frame">
       <span class="photo-ring"></span>
@@ -317,7 +323,6 @@
       <span class="corner br">💖</span>
       <span class="spark s1">✨</span><span class="spark s2">💫</span>
       <span class="spark s3">✨</span><span class="spark s4">🌟</span>
-      <span class="badge">My whole world ❤️</span>
     </div>
 
     <div class="letter reveal">
@@ -353,6 +358,7 @@
     }
     splitLetters(document.getElementById('wifeTitle'), 1.2, 0.1);
     splitLetters(document.getElementById('hbTitle'), 0.4, 0.06);
+    splitLetters(document.getElementById('nameText'), 2, 0.09);
 
     // Gentle hearts drifting up in the background the whole time.
     function spawnHeart() {
