@@ -129,7 +129,7 @@
     @keyframes appear { to { opacity: 1; transform: none; } }
 
     .big-title {
-      font-size: clamp(2.8rem, 12vw, 6.5rem); font-weight: 400; line-height: 1.02;
+      font-size: clamp(2.2rem, 12vw, 6.5rem); font-weight: 400; line-height: 1.02;
       letter-spacing: -.03em;
     }
     .big-title .line1 { display: block; color: var(--white); text-shadow: 0 0 30px #ffffff33; }
@@ -191,7 +191,7 @@
     }
     .polaroid:nth-child(1) { transform: rotate(-5deg); }
     .polaroid:nth-child(2) { transform: rotate(4deg); }
-    .polaroid:hover { transform: rotate(0) scale(1.05); }
+    @media (hover: hover) { .polaroid:hover { transform: rotate(0) scale(1.05); } }
     .polaroid img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; border-radius: 2px; }
     .polaroid span { position: absolute; bottom: 9px; left: 0; right: 0; text-align: center; }
 
@@ -250,7 +250,6 @@
 
     <div class="finale">
       <h2>I love you, always 💞</h2>
-      <p>Make a wish, birthday girl 🎂</p>
       <button id="againBtn" class="again">Celebrate again 🎉</button>
     </div>
   </main>
